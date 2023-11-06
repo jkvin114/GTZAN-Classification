@@ -2,9 +2,6 @@
 import os
 from PIL import Image
 import numpy as np
-import torch.nn.functional as F
-from torch.utils.data import DataLoader
-from torch.utils.data import sampler
 from sklearn.model_selection import train_test_split
 import torch
 
@@ -87,9 +84,9 @@ def load_data(limit=None):
     val = torch.utils.data.TensorDataset(torch_X_val,torch_y_val)
 
     # data loader
-    train_loader = torch.utils.data.DataLoader(train, batch_size = 64, shuffle = True)
+    train_loader = torch.utils.data.DataLoader(train, batch_size = 128, shuffle = True)
     test_loader = torch.utils.data.DataLoader(test, batch_size = 32, shuffle = False)
-    val_loader = torch.utils.data.DataLoader(val, batch_size = 16, shuffle = False)
+    val_loader = torch.utils.data.DataLoader(val, batch_size = 32, shuffle = False)
     
 
 

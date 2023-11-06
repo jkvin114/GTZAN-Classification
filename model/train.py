@@ -1,6 +1,4 @@
 import torch
-import torch.nn as nn
-import torch.optim as optim
 import torch.nn.functional as F
 
 import numpy as np
@@ -24,6 +22,12 @@ def check_accuracy(loader, model):
         acc = float(num_correct) / num_samples
         print('Got %d / %d correct (%.2f)' % (num_correct, num_samples, 100 * acc))
     return acc
+def check_pred(scores,y):
+    _, preds = scores.max(1)
+    num_correct = (preds == y).sum()
+    num_samples = preds.size(0)
+    acc = float(num_correct) / num_samples
+    print('Got %d / %d correct (%.2f)' % (num_correct, num_samples, 100 * acc))
 
 def train(model, optimizer,dataloader, epochs=1):
     """
@@ -64,8 +68,12 @@ def train(model, optimizer,dataloader, epochs=1):
             optimizer.step()
 
             if t % print_every == 0:
+                print("Training accuracy:")
+                check_pred(scores,y)
+                print("Validation accuracy:")
                 print('Iteration %d, loss = %.4f' % (t, loss.item()))
                 acc=check_accuracy(dataloader["val"], model)
+
                 accs.append(acc)
                 losses.append(loss.item())
                 print()

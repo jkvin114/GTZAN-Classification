@@ -1,7 +1,4 @@
-import torch
 import torch.nn as nn
-from torch.utils.data import DataLoader
-from torch.utils.data import sampler
 
 import numpy as np
 
@@ -30,7 +27,7 @@ def calc_conv_dim(inputdim,pad,kernelsize,stride):
 class ConvNet(nn.Module):
     def __init__(self):
         super().__init__()
-        input_dim=32
+        input_dim=128
         num_classes=10
         filters=[32,64,128,128]
         self.batchnorm = nn.BatchNorm2d(3)
